@@ -18,8 +18,10 @@
         <maven.compiler.release>21</maven.compiler.release>
 
         <grpc.version>1.81.0</grpc.version>
-        <protobuf.version>3.24.4</protobuf.version>
-        <os.detected.classifier>windows-x86_64</os.detected.classifier>
+        <protobuf.version>3.25.9</protobuf.version>
+
+        <fixed.os.classifier>windows-x86_64</fixed.os.classifier>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -40,22 +42,38 @@
             <artifactId>grpc-stub</artifactId>
             <version>${grpc.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protoc</artifactId>
+            <version>${protobuf.version}</version>
+            <classifier>${fixed.os.classifier}</classifier>
+            <type>exe</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>protoc-gen-grpc-java</artifactId>
+            <version>${grpc.version}</version>
+            <classifier>${fixed.os.classifier}</classifier>
+            <type>exe</type>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.21.3</version>
         </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
-        <extensions>
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>1.7.1</version>
-            </extension>
-        </extensions>
-
         <plugins>
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
@@ -63,11 +81,11 @@
                 <version>0.6.1</version>
                 <configuration>
                     <protocArtifact>
-                        com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
+                        com.google.protobuf:protoc:${protobuf.version}:exe:${fixed.os.classifier}
                     </protocArtifact>
                     <pluginId>grpc-java</pluginId>
                     <pluginArtifact>
-                        io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
+                        io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${fixed.os.classifier}
                     </pluginArtifact>
                     <outputDirectory>
                         ${project.basedir}/src/main/java
@@ -85,7 +103,6 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
 ```
 
