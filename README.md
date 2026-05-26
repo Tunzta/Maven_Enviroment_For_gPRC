@@ -16,6 +16,8 @@
 
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
 
         <grpc.version>1.81.0</grpc.version>
         <protobuf.version>3.25.9</protobuf.version>
